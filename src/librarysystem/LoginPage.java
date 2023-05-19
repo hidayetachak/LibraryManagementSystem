@@ -35,9 +35,11 @@ public class LoginPage {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
 
-                if (username.equals("admin") && password.equals("password")) {
+                if (username.equals("admin") && password.equals("pass")) {
                     JOptionPane.showMessageDialog(frame, "Login successful!");
                     // if login success show admin page
+                    AdminPage ap=new AdminPage();
+                    
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid username or password. Please try again.");
                 }
