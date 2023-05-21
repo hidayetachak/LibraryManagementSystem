@@ -8,6 +8,8 @@ package librarysystem;
  *
  * @author Hidayet
  */
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +31,12 @@ public class AdminPage {
         JPanel panel = new JPanel();
 
         JButton viewUsersButton = new JButton("View Users");
-viewUsersButton.addActionListener(new ActionListener() {
+        viewUsersButton.setHorizontalAlignment(SwingConstants.LEFT);
+
+        viewUsersButton.setBackground(new Color(70, 130, 180));
+        viewUsersButton.setForeground(Color.WHITE);
+        viewUsersButton.setFont(new Font("Arial", Font.BOLD, 14));
+        viewUsersButton.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
         StringBuilder userList = new StringBuilder();
         for (User user : users) {
@@ -45,6 +52,11 @@ viewUsersButton.addActionListener(new ActionListener() {
 
 
         JButton addUserButton = new JButton("Add User");
+        addUserButton.setHorizontalAlignment(SwingConstants.LEFT);
+
+        addUserButton.setBackground(new Color(70, 130, 180));
+        addUserButton.setForeground(Color.WHITE);
+       addUserButton.setFont(new Font("Arial", Font.BOLD, 14));
 addUserButton.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
         String uid = JOptionPane.showInputDialog(frame, "Enter UID:");
@@ -77,6 +89,9 @@ addUserButton.addActionListener(new ActionListener() {
 });
 
  JButton addBookButton = new JButton("Add Book");
+   addBookButton.setBackground(new Color(70, 130, 180));
+        addBookButton.setForeground(Color.WHITE);
+      addBookButton.setFont(new Font("Arial", Font.BOLD, 14));
         addBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String bookName = JOptionPane.showInputDialog(frame, "Enter book title:");
@@ -93,6 +108,9 @@ addUserButton.addActionListener(new ActionListener() {
         });
 
         JButton viewIssuedBookButton = new JButton("View Issued Books");
+        viewIssuedBookButton.setBackground(new Color(70, 130, 180));
+       viewIssuedBookButton.setForeground(Color.WHITE);
+      viewIssuedBookButton.setFont(new Font("Arial", Font.BOLD, 14));
         viewIssuedBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for (Book book : books) {
@@ -105,6 +123,9 @@ addUserButton.addActionListener(new ActionListener() {
         });
 
         JButton returnBookButton = new JButton("Return Book");
+          returnBookButton.setBackground(new Color(70, 130, 180));
+       returnBookButton.setForeground(Color.WHITE);
+      returnBookButton.setFont(new Font("Arial", Font.BOLD, 14));
         returnBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String bookID = JOptionPane.showInputDialog(frame, "Enter book ID:");
@@ -127,6 +148,9 @@ addUserButton.addActionListener(new ActionListener() {
         });
 
         JButton issueBookButton = new JButton("Issue Book");
+         issueBookButton.setBackground(new Color(70, 130, 180));
+       issueBookButton.setForeground(Color.WHITE);
+      issueBookButton.setFont(new Font("Arial", Font.BOLD, 14));
         issueBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String bookID = JOptionPane.showInputDialog(frame, "Enter book ID:");
@@ -148,6 +172,9 @@ addUserButton.addActionListener(new ActionListener() {
         });
 
         JButton createResetButton = new JButton("Create/Reset");
+          createResetButton.setBackground(new Color(70, 130, 180));
+       createResetButton.setForeground(Color.WHITE);
+      createResetButton.setFont(new Font("Arial", Font.BOLD, 14));
         addBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String book = JOptionPane.showInputDialog(frame, "Enter book title:");
