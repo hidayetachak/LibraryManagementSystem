@@ -17,7 +17,8 @@ import java.util.List;
 public class AdminPage {
     private JFrame frame;
     private List<User> users = new ArrayList<>();
-    private List<String> books;
+    private List<Book> books;
+;
 
     public AdminPage() {
         frame = new JFrame("Admin Page");
@@ -75,64 +76,82 @@ addUserButton.addActionListener(new ActionListener() {
     }
 });
 
-
-        JButton viewBooksButton = new JButton("View Books");
-        viewBooksButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                StringBuilder bookList = new StringBuilder();
-                for (String book : books) {
-                    bookList.append(book).append("\n");
-                }
-                JOptionPane.showMessageDialog(frame, bookList.toString(), "Books", JOptionPane.PLAIN_MESSAGE);
-            }
-        });
-
-        JButton addBookButton = new JButton("Add Book");
+ JButton addBookButton = new JButton("Add Book");
         addBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String book = JOptionPane.showInputDialog(frame, "Enter book title:");
-                if (book != null && !book.isEmpty()) {
+                String bookName = JOptionPane.showInputDialog(frame, "Enter book title:");
+                if (bookName != null && !bookName.isEmpty()) {
+                    String bookPrice = JOptionPane.showInputDialog(frame, "Enter book price:");
+                    double price = Double.parseDouble(bookPrice);
+                    String bookID = JOptionPane.showInputDialog(frame, "Enter book ID:");
+                    int id = Integer.parseInt(bookID);
+                    Book book = new Book(bookName, price, id);
                     books.add(book);
                     JOptionPane.showMessageDialog(frame, "Book added successfully!");
                 }
             }
         });
+
         JButton viewIssuedBookButton = new JButton("View Issued Books");
-        addBookButton.addActionListener(new ActionListener() {
+        viewIssuedBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String book = JOptionPane.showInputDialog(frame, "Enter book title:");
-                if (book != null && !book.isEmpty()) {
-                    books.add(book);
-                    JOptionPane.showMessageDialog(frame, "Book added successfully!");
+                for (Book book : books) {
+                    // Display book details (name, price, ID)
+                    System.out.println("Book Name: " + book.getName());
+                    System.out.println("Book Price: " + book.getPrice());
+                    System.out.println("Book ID: " + book.getId());
                 }
             }
         });
-        JButton returnBookButton = new JButton("View Issued Books");
-        addBookButton.addActionListener(new ActionListener() {
+
+        JButton returnBookButton = new JButton("Return Book");
+        returnBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String book = JOptionPane.showInputDialog(frame, "Enter book title:");
-                if (book != null && !book.isEmpty()) {
-                    books.add(book);
-                    JOptionPane.showMessageDialog(frame, "Book added successfully!");
+                String bookID = JOptionPane.showInputDialog(frame, "Enter book ID:");
+                if (bookID != null && !bookID.isEmpty()) {
+                    int id = Integer.parseInt(bookID);
+                    boolean found = false;
+                    for (Book book : books) {
+                        if (book.getId() == id) {
+                            books.remove(book);
+                            found = true;
+                            JOptionPane.showMessageDialog(frame, "Book returned successfully!");
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        JOptionPane.showMessageDialog(frame, "Book not found!");
+                    }
                 }
             }
         });
-        JButton issueBookButton = new JButton("View Issued Books");
-        addBookButton.addActionListener(new ActionListener() {
+
+        JButton issueBookButton = new JButton("Issue Book");
+        issueBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String book = JOptionPane.showInputDialog(frame, "Enter book title:");
-                if (book != null && !book.isEmpty()) {
-                    books.add(book);
-                    JOptionPane.showMessageDialog(frame, "Book added successfully!");
+                String bookID = JOptionPane.showInputDialog(frame, "Enter book ID:");
+                if (bookID != null && !bookID.isEmpty()) {
+                    int id = Integer.parseInt(bookID);
+                    boolean found = false;
+                    for (Book book : books) {
+                        if (book.getId() == id) {
+                            found = true;
+                            JOptionPane.showMessageDialog(frame, "Book issued successfully!");
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        JOptionPane.showMessageDialog(frame, "Book not found!");
+                    }
                 }
             }
         });
-        JButton createResetButton = new JButton("View Issued Books");
+
+        JButton createResetButton = new JButton("Create/Reset");
         addBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String book = JOptionPane.showInputDialog(frame, "Enter book title:");
                 if (book != null && !book.isEmpty()) {
-                    books.add(book);
                     JOptionPane.showMessageDialog(frame, "Book added successfully!");
                 }
             }
@@ -141,7 +160,7 @@ addUserButton.addActionListener(new ActionListener() {
         panel.add(viewUsersButton);
         panel.add(viewIssuedBookButton);
         panel.add(addUserButton);
-        panel.add(viewBooksButton);
+        panel.add(viewIssuedBookButton);
         panel.add(addBookButton);
         panel.add(createResetButton);
         panel.add(issueBookButton);
