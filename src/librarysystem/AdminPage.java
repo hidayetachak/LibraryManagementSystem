@@ -36,16 +36,37 @@ public class AdminPage  {
         viewUsersButton.setBackground(new Color(70, 130, 180));
         viewUsersButton.setForeground(Color.WHITE);
         viewUsersButton.setFont(new Font("Arial", Font.BOLD, 14));
-        viewUsersButton.addActionListener(new ActionListener() {
+       viewUsersButton.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
+        // Create an instance of DatabaseManager
+        String jdbcUrl = "jdbc:mysql://localhost/phpmyadmin/index.php?route=/database/structure&db=library"; // Replace with your database URL
+        String dbUsername = "library";
+        String dbPassword = "";
+        DatabaseManager databaseManager = new DatabaseManager(jdbcUrl, dbUsername, dbPassword);
+
+        // Fetch user data from the database
+        String tableName = "users"; // Replace with your table name
+        String query = "SELECT * FROM " + tableName;
+        ResultSet resultSet = (ResultSet) databaseManager.executeQuery(query);
+
         StringBuilder userList = new StringBuilder();
-        for (User user : users) {
-            userList.append("User ID: ").append(user.getUid()).append("\n");
-            userList.append("Username: ").append(user.getUsername()).append("\n");
-            userList.append("Password: ").append(user.getPassword()).append("\n");
-            userList.append("Is Admin: ").append(user.isAdmin() ? "Yes" : "No").append("\n");
+        while (resultSet.next()) {
+            String uid = resultSet.getString("uid");
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            boolean isAdmin = resultSet.getBoolean("isAdmin");
+            
+            userList.append("User ID: ").append(uid).append("\n");
+            userList.append("Username: ").append(username).append("\n");
+            userList.append("Password: ").append(password).append("\n");
+            userList.append("Is Admin: ").append(isAdmin ? "Yes" : "No").append("\n");
             userList.append("\n");
         }
+        resultSet.close();
+
+        // Close the database connection
+        databaseManager.closeConnection();
+
         JOptionPane.showMessageDialog(frame, userList.toString(), "Users", JOptionPane.PLAIN_MESSAGE);
     }
 });
@@ -81,10 +102,24 @@ addUserButton.addActionListener(new ActionListener() {
         boolean isAdmin = (isAdminOption == JOptionPane.YES_OPTION);
         
         
-        User newUser = new User(uid, username, password, isAdmin);
-        users.add(newUser);
+//        User newUser = new User(uid, username, password, isAdmin);
+//        users.add(newUser);
         
+        //database connectivity
+        String jdbcUrl = "jdbc:mysql://localhost/phpmyadmin/index.php?route=/database/structure&db=library"; // Replace with your database URL
+        String dbUsername = "library";
+        String dbPassword = "";
+        DatabaseManager databaseManager = new DatabaseManager(jdbcUrl, dbUsername, dbPassword);
+
+        String tableName = "users";
+        String[] columns = {"uid", "username", "password", "isAdmin"};
+        Object[] values = {uid, username, password, isAdmin};
+        databaseManager.insertData(tableName, columns, values);
+
+        databaseManager.closeConnection();
+
         JOptionPane.showMessageDialog(frame, "User added successfully!");
+        
     }
 });
 
