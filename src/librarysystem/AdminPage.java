@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminPage {
+public class AdminPage  {
     private JFrame frame;
     private List<User> users = new ArrayList<>();
     private List<Book> books;
@@ -112,15 +112,17 @@ addUserButton.addActionListener(new ActionListener() {
        viewIssuedBookButton.setForeground(Color.WHITE);
       viewIssuedBookButton.setFont(new Font("Arial", Font.BOLD, 14));
         viewIssuedBookButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                for (Book book : books) {
-                    // Display book details (name, price, ID)
-                    System.out.println("Book Name: " + book.getName());
-                    System.out.println("Book Price: " + book.getPrice());
-                    System.out.println("Book ID: " + book.getId());
-                }
-            }
-        });
+         public void actionPerformed(ActionEvent e) {
+        StringBuilder bookList = new StringBuilder();
+        for (Book book : books) {
+            bookList.append("User ID: ").append(book.getId()).append("\n");
+            bookList.append("Username: ").append(book.getName()).append("\n");
+            bookList.append("Password: ").append(book.getPrice()).append("\n");
+            bookList.append("\n");
+        }
+        JOptionPane.showMessageDialog(frame, bookList.toString(), "Users", JOptionPane.PLAIN_MESSAGE);
+    }
+});
 
         JButton returnBookButton = new JButton("Return Book");
           returnBookButton.setBackground(new Color(70, 130, 180));
@@ -205,4 +207,5 @@ addUserButton.addActionListener(new ActionListener() {
             }
         });
     }
+
 }

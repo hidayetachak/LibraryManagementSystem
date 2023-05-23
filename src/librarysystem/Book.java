@@ -8,7 +8,7 @@ package librarysystem;
  *
  * @author Hidayet
  */
-public class Book 
+public class Book implements BookInterface 
 
     {
     private String name;

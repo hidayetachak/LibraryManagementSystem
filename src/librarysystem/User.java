@@ -8,7 +8,7 @@ package librarysystem;
  *
  * @author Hidayet
  */
-public class User {
+public class User implements UserInterface {
     private String uid;
     private String username;
     private String password;
